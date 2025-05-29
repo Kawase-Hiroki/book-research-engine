@@ -3,10 +3,10 @@ import './App.css';
 import React, { useState } from 'react';
 
 function make_amazon_url(isbn) {
-  const base = 'https://www.amazon.co.jp/dp/'
+  const base = 'https://www.amazon.co.jp/dp/';
 
-  const url = '${base}${isbn}';
-  return url
+  const url = `${base}${isbn}`;
+  return url;
 }
 
 function App() {
@@ -43,7 +43,9 @@ function App() {
       <div style={{ marginTop: '2rem' }}>
         {books.map((item) => {
           const book = item.volumeInfo;
-          const url = make_amazon_url(book.industryIdentifiers[0].identifier);
+          const identifier = book.industryIdentifiers?.[0]?.identifier;
+          if (!identifier) return null;
+          const url = make_amazon_url(identifier);
           return (
             <div key={item.id} style={{ marginBottom: '1rem', borderBottom: '1px solid #ccc' }}>
               <h3>{book.title}</h3>
