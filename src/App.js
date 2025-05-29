@@ -3,9 +3,10 @@ import './App.css';
 import React, { useState } from 'react';
 
 function make_amazon_url(book) {
-  const isbn13 = book.industryIdentifiers?.find(id => id.type === 'ISBN_13')?.identifier;
-  if (!isbn13) return null;
-  return `https://www.amazon.co.jp/dp/${isbn13}`;
+  const id = book.industryIdentifiers?.find(id => id.type === 'ISBN_10')?.identifier
+           || book.industryIdentifiers?.find(id => id.type === 'ISBN_13')?.identifier;
+  if (!id) return null;
+  return `https://www.amazon.co.jp/dp/${id}`
 }
 
 function App() {
