@@ -3,7 +3,7 @@ import './App.css';
 import React, { useState } from 'react';
 
 function make_amazon_url(isbn) {
-  const base = 'https://www.amazon.co.jp/dp/B0'
+  const base = 'https://www.amazon.co.jp/dp/'
 
   const url = '${base}${isbn}';
   return url
