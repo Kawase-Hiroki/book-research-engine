@@ -2,11 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 import React, { useState } from 'react';
 
-function make_amazon_url(isbn) {
-  const base = 'https://www.amazon.co.jp/dp/';
-
-  const url = `${base}${isbn}`;
-  return url;
+function make_amazon_url(book) {
+  const isbn13 = book.industryIdentifiers?.find(id => id.type === 'ISBN_13')?.identifier;
+  if (!isbn13) return null;
+  return `https://www.amazon.co.jp/dp/${isbn13}`;
 }
 
 function App() {
@@ -45,14 +44,16 @@ function App() {
           const book = item.volumeInfo;
           const identifier = book.industryIdentifiers?.[0]?.identifier;
           if (!identifier) return null;
-          const url = make_amazon_url(identifier);
+          const url = make_amazon_url(book);
           return (
             <div key={item.id} style={{ marginBottom: '1rem', borderBottom: '1px solid #ccc' }}>
               <h3>{book.title}</h3>
               <p>{book.authors?.join(', ')}</p>
-              <a href={url} target="_blank" rel="noopener noreferrer">
-                Amazonで見る
-              </a>
+              {url && (
+                <a href={url} target="_blank" rel="noopener noreferrer">
+                  Amazonで見る
+                </a>
+              )}
               {book.imageLinks?.thumbnail && (
                 <img src={book.imageLinks.thumbnail} alt={book.title} />
               )}
