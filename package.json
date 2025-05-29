@@ -1,5 +1,5 @@
 {
-  "homepage": "https://kawase-hiroki.github.io/book-research-engine/",
+  "homepage": "https://Kawase-Hiroki.github.io/book-research-engine/",
   "name": "book-research-engine",
   "version": "0.1.0",
   "private": true,
@@ -14,7 +14,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "deploy": "rm -rm docs && nmp run build && mv build docs",
+    "rm": "rm -rf docs",
+    "mv": "mv build docs",
+    "git": "git add . && git commit && git push origin master",
+    "deploy": "npm run rm && npm run build && npm run mv && npm run git",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
